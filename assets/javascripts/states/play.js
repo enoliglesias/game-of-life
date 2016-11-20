@@ -15,8 +15,10 @@ GameOfLife.Play.prototype = {
     this.generateWorldCells();
     this.generateLightweightSpaceship(4, 5);
     this.generateLightweightSpaceship(40, 10);
+    this.generateLightweightSpaceship(30, 30);
     this.generateGlider(15, 35);
     this.generateGlider(10, 20);
+    this.generateGlider(5, 40);
     this.generateBlinker(25, 25);
     this.generateToad(5, 30);
     this.generateBacon(15, 15);
