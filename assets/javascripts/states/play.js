@@ -33,14 +33,25 @@ GameOfLife.Play.prototype = {
     this.cellsToDead = [];
     this.cellsToLive = [];
 
-    for(var i = 0; i < GameOfLife.width; i++) {
-      for(var j = 0; j < GameOfLife.height; j++) {
-        var cell = this.findCell(i, j);
-        this.checkLife(cell);
-      }
-    }
+    var cellsToCheck = this.getCellsToCheckLife();
+    cellsToCheck.forEach(function(cell) {
+      this.checkLife(cell);
+    }, this);
 
     console.log("generation complete");
+  },
+
+  getCellsToCheckLife: function(){
+    // We need the alive cells and their neighbours
+    var cellsToCheck = _(this.cellGroup.children).filter(function(cell){ return cell.alive; });
+    // Now we need to calculate the neighbours
+    cellsToCheck.forEach(function(cell) {
+      var neighboursPoints = this.getCellPointsAround(cell.x, cell.y);
+      neighboursPoints.forEach(function(points){
+        cellsToCheck.push(this.findCell(points[0], points[1]));
+      }, this);
+    }, this);
+    return cellsToCheck;
   },
 
   generateWorldCells: function(){
