@@ -2,7 +2,6 @@ var GameOfLife = GameOfLife || {};
 
 GameOfLife.Play = function () {};
 
-
 GameOfLife.Play.prototype = {
 
   create: function() {
@@ -14,11 +13,14 @@ GameOfLife.Play.prototype = {
     // Create cell group
     this.cellGroup = this.game.add.group();
     this.generateWorldCells();
-    this.resetCell(4, 5);
-    this.resetCell(5, 5);
-    this.resetCell(6, 5);
-    this.resetCell(6, 4);
-    this.resetCell(5, 3);
+    this.generateLightweightSpaceship(4, 5);
+    this.generateBlinker(25, 25);
+    this.generateBlock(40, 45);
+    this.generateLoaf(10, 45);
+    this.generateBoat(40, 30);
+    this.generateToad(5, 30);
+    this.generateBacon(15, 15);
+    this.generatePentadecathlon(30, 5);
   },
 
   update: function() {
@@ -34,7 +36,8 @@ GameOfLife.Play.prototype = {
     this.cellsToLive = [];
 
     var cellsToCheck = this.getCellsToCheckLife();
-    cellsToCheck.forEach(function(cell) {
+
+    _.compact(cellsToCheck).forEach(function(cell) {
       this.checkLife(cell);
     }, this);
 
@@ -135,6 +138,104 @@ GameOfLife.Play.prototype = {
 
   findCell: function(x, y) {
     return _(this.cellGroup.children).find(function(cell){ return cell.x == x && cell.y == y; });
+  },
+
+  // Auxiliar functions in order to create patterns
+
+  // Still lifes
+
+  generateBlock: function(x, y) {
+    var elementPoints = [[x, y], [x, y+1], [x+1, y], [x+1, y+1]];
+    elementPoints.forEach(function(point) {
+      this.resetCell(point[0], point[1]);
+    }, this);
+  },
+
+  generateLoaf: function(x, y) {
+    var elementPoints = [[x, y], [x+1, y+1], [x+2, y+2], [x+1, y-1], [x+2, y-1], [x+3, y], [x+3, y+1]];
+    elementPoints.forEach(function(point) {
+      this.resetCell(point[0], point[1]);
+    }, this);
+  },
+
+  generateBoat: function(x, y) {
+    var elementPoints = [[x, y], [x+1, y], [x, y+1], [x+2, y+1], [x+1, y+2]];
+    elementPoints.forEach(function(point) {
+      this.resetCell(point[0], point[1]);
+    }, this);
+  },
+
+  // Oscillators
+
+  generateBlinker: function(x, y) {
+    var elementPoints = [[x, y], [x-1, y], [x-2, y]];
+    elementPoints.forEach(function(point) {
+      this.resetCell(point[0], point[1]);
+    }, this);
+  },
+
+  generateToad: function(x, y){
+    var elementPoints = [[x, y], [x, y+1], [x+1, y+2], [x+2, y-1], [x+3, y], [x+3, y+1]];
+    elementPoints.forEach(function(point) {
+      this.resetCell(point[0], point[1]);
+    }, this);
+  },
+
+  generateBacon: function(x, y){
+    var elementPoints = [[x, y], [x, y+1], [x+1, y], [x+2, y+3], [x+3, y+3], [x+3, y+2]];
+    elementPoints.forEach(function(point) {
+      this.resetCell(point[0], point[1]);
+    }, this);
+  },
+
+  generatePulsar: function(x, y){
+    var elementPoints = [
+          [x, y+2], [x, y+3], [x, y+4], [x+2, y], [x+3, y], [x+4, y],
+          [x+2, y+5],[x+3, y+5],[x+4, y+5],[x+5, y+2],[x+5, y+3],[x+5, y+4],
+
+          [x+8, y], [x+9, y], [x+10, y], [x+7, y+2], [x+7, y+3], [x+7, y+4],
+          [x+8, y+5],[x+9, y+5],[x+10, y+5],[x+12, y+2],[x+12, y+3],[x+12, y+4],
+
+          [x, y+8], [x, y+9], [x, y+10], [x+2, y+7], [x+3, y+7], [x+4, y+7],
+          [x+2, y+12],[x+3, y+12],[x+4, y+12],[x+5, y+8],[x+5, y+9],[x+5, y+10],
+
+          [x+7, y+8], [x+7, y+9], [x+7, y+10], [x+8, y+7], [x+9, y+7], [x+10, y+7],
+          [x+8, y+12],[x+9, y+12],[x+10, y+12],[x+12, y+8],[x+12, y+9],[x+12, y+10],
+        ];
+    elementPoints.forEach(function(point) {
+      this.resetCell(point[0], point[1]);
+    }, this);
+  },
+
+  generatePentadecathlon: function(x, y) {
+    var elementPoints = [
+          [x+1, y], [x+1, y+1], [x+1, y+2], [x, y+2], [x+2, y+2],
+          [x, y+5],[x+1, y+5],[x+2, y+5], [x+1, y+6], [x+1, y+6], [x+1, y+7],
+          [x+1, y+8], [x+1, y+9], [x+1, y+10], [x, y+10], [x+2, y+10],
+          [x, y+13], [x+1, y+13], [x+2, y+13], [x+1, y+14], [x+1, y+15],
+        ];
+    elementPoints.forEach(function(point) {
+      this.resetCell(point[0], point[1]);
+    }, this);
+  },
+
+  // Spaceships
+
+  generateGlider: function(x, y) {
+    var elementPoints = [[x, y], [x+1, y], [x+2, y], [x+2, y-1], [x+1, y-2]];
+    elementPoints.forEach(function(point) {
+      this.resetCell(point[0], point[1]);
+    }, this);
+  },
+
+  generateLightweightSpaceship: function(x, y) {
+    var elementPoints = [
+          [x+1, y], [x+2, y], [x, y+1], [x, y+2], [x+1, y+1], [x+1, y+2],
+          [x+2, y+1],[x+3, y+1], [x+3, y+2], [x+4, y+2], [x+2, y+3], [x+3, y+2], [x+3, y+3]
+        ];
+    elementPoints.forEach(function(point) {
+      this.resetCell(point[0], point[1]);
+    }, this);
   }
 
 
