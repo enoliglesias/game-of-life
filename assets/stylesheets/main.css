@@ -16,3 +16,13 @@ body {
   max-height: 500px;
   max-width: 500px;
 }
+
+.info {
+  text-align: center;
+  margin-top: 20px;
+}
+
+a {
+  text-decoration: none;
+  color: #66cbff;
+}
