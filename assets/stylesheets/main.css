@@ -13,6 +13,6 @@ body {
   color: #FFF;
   margin: 0 auto;
   margin-top: 25px;
-  height: 600px;
-  max-width: 800px;
+  max-height: 500px;
+  max-width: 500px;
 }
