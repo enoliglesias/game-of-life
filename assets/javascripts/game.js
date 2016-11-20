@@ -1,6 +1,9 @@
 var GameOfLife = GameOfLife || {};
 
-GameOfLife.game = new Phaser.Game(640, 480, Phaser.AUTO, 'game-container');
+GameOfLife.width = 50;
+GameOfLife.height = 50;
+
+GameOfLife.game = new Phaser.Game(GameOfLife.width, GameOfLife.height, Phaser.AUTO, 'game-container');
 
 GameOfLife.game.state.add("boot", GameOfLife.Boot);
 GameOfLife.game.state.add("load", GameOfLife.Load);
