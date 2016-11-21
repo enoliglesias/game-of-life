@@ -1,7 +1,7 @@
 var GameOfLife = GameOfLife || {};
 
-GameOfLife.width = 80;
-GameOfLife.height = 80;
+GameOfLife.width = 50;
+GameOfLife.height = 50;
 
 GameOfLife.game = new Phaser.Game(GameOfLife.width, GameOfLife.height, Phaser.CANVAS, 'game-container');
 
