@@ -13,11 +13,11 @@ GameOfLife.Play.prototype = {
     // Create cell group
     this.cellGroup = this.game.add.group();
     this.generateWorldCells();
-    this.resetCell(25, 25);
-    this.resetCell(26, 25);
-    this.resetCell(26, 26);
-    this.resetCell(26, 27);
-    this.resetCell(27, 26);
+    this.resetCell(35, 35);
+    this.resetCell(36, 35);
+    this.resetCell(36, 36);
+    this.resetCell(36, 37);
+    this.resetCell(37, 36);
   },
 
   update: function() {
@@ -73,6 +73,9 @@ GameOfLife.Play.prototype = {
       var cellAround = this.findCell(point[0], point[1]);
       if ( cellAround && cellAround.alive && cellAround != cell ) {
         cellsAround++;
+        if ( cellsAround >= 3 ){
+          return false;
+        }
       }
     }, this);
     this.applyRules(cell, cellsAround);
